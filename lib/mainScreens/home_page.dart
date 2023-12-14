@@ -1,8 +1,27 @@
-import 'package:flutter/material.dart';
+import 'dart:async';
 
-class HomePage extends StatelessWidget {
-  HomePage({required this.name, super.key});
+import 'package:flutter/material.dart';
+import 'package:tofo_fb/demoScreens/homeScree.dart';
+
+class HomePage extends StatefulWidget {
+  HomePage({required this.docId, required this.name, super.key});
   String name;
+  String docId;
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    Timer(
+        Duration(seconds: 3),
+        () => Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (BuildContext context) => HScreen(docId: widget.docId))));
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +34,7 @@ class HomePage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "WELCOM $name",
+                "WELCOM ${widget.name}",
                 style: const TextStyle(color: Colors.purple, fontSize: 100),
               )
             ],

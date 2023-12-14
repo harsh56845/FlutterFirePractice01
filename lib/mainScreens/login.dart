@@ -13,18 +13,13 @@ class _LoginCardState extends State<LoginCard> {
 
   Future<void> login() async {
     try {
-      String? pass;
       Stream<QuerySnapshot<Map<String, dynamic>>> users =
           FirebaseFirestore.instance.collection('users').snapshots();
-      // bool isEmailFount = false;
       users.forEach((element) {
         element.docs
             .map((data) => {
                   if (data['Email'] == emailController.text)
                     {
-                      // print(data['Email']),
-                      // print(data['Password']),
-                      pass = data['Password'],
                       if (data['Password'] == passController.text)
                         {
                           Navigator.push(
@@ -32,32 +27,22 @@ class _LoginCardState extends State<LoginCard> {
                               MaterialPageRoute(
                                   builder: (_) => HomePage(
                                         name: data['Name'],
+                                        docId: data.id,
                                       ))),
                           ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
                                   content: Text('Your Email or Id Verfied'))),
                         }
+                      else
+                        {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content: Text('Enter Password is wrong'))),
+                        }
                     }
                 })
             .toList();
       });
-
-//       _usersStream.forEach((element) {
-//         element.docs
-//             .map((e) => {
-// // print(e['Name'] + "  " + e['Password'] + " " + e.id)
-//                   setState(() {
-//                     listuser.add(
-//                         User(id: e.id, name: e['Name'], pass: e['Password']));
-//                   })
-//                 })
-//             .toList();
-//       });
-
-      // print(pass.toString());
-      // if (pass == passController.text) {
-      //   // Navigator.push(context, MaterialPageRoute(builder: (_) => HomePage()));
-      // } else {
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Your Email or Id doesnot Match')));
       // }

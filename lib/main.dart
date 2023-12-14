@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:tofo_fb/demoScreens/homeScree.dart';
 import 'package:tofo_fb/mainScreens/home_page.dart';
 import 'package:tofo_fb/mainScreens/login.dart';
 import 'package:tofo_fb/mainScreens/signup.dart';
@@ -36,8 +37,8 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(),
-      debugShowCheckedModeBanner: false,
+      theme: ThemeData(), debugShowCheckedModeBanner: false,
+      // home: HScreen()
       home: DefaultTabController(
         length: 2,
         child: Scaffold(
